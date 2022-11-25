@@ -33,9 +33,11 @@ colocar uml
 
 ### Paralelização de lasers duais
 
-Um dos produtos desenvolvidos pelo grupo Idea são lasers duais, que possuem duas _goldboxs_ integradas numa mesma eletrônica reduzindo o tamanho resultante do conjunto. É utilizado um único micro-controlador e interface de comunicação para os dois lasers e apesar disso os lasers funcionam de forma independente. A distinção dos comandos de controle enviados para cada laser é feito por meio de um comando adicional que segue o protocolo estabelecido pela OIF, ou seja, após o envio do comando identificando qual o laser de destino da informação, todos os próximos comandos recebidos serão aplicados sobre o laser informado.
+Um dos produtos desenvolvidos pelo grupo Idea são lasers duais, que possuem duas _goldboxes_ integradas numa mesma eletrônica reduzindo o tamanho resultante do conjunto. É utilizado um único micro-controlador e interface de comunicação para os dois lasers, e apesar disso os lasers funcionam de forma independente. A distinção dos comandos de controle enviados para cada laser é feito por meio de um comando adicional que segue o protocolo estabelecido pela OIF, ou seja, após o envio do comando identificando qual o laser de destino da informação, todos os próximos comandos recebidos serão aplicados sobre o laser informado.
 
-Dado o compartilhamento da interface de comunicação e o protocolo utilizado nos lasers duais, o fluxo de testes era aplicado de forma sequencial entre as _goldboxs_ e o tempo para execução do fluxo completo era quase que o dobro do utilizado em lasers que possuia uma única _goldbox_.
+Dado o compartilhamento da interface de comunicação e o protocolo utilizado nos lasers duais, o fluxo de testes era aplicado de forma sequencial entre as _goldboxes_ e o tempo para execução do fluxo completo era quase que o dobro do utilizado em lasers que possuiam uma única _goldbox_.
+
+Para possibilitar a execução dos testes de cada uma das _goldboxes_ concorrentemente em threads, é preciso ter uma sincronização entre as threads e para isso foi utilizado uma arquitetura baseada em _mutex_. Cada eletrônica precisa ter sua própria mutex e essa mutex precisa ser compartilhada entre as goldboxes de uma mesma eletrônica.
 
 ### Refatorações e Reestruturações
 
