@@ -25,8 +25,11 @@ O principal objetivo do Prospector é ser útil 'fora da caixa'. Uma reclamaçã
 colocar imagem ilustrativa
 
 ### Factory Method
-...
-colocar uml
+
+Factory Method é um padrão de design criacional que fornece uma interface para criar objetos em uma superclasse, mas permite que as subclasses alterem o tipo de objeto que será criado. O padrão Factory Method sugere que você substitua chamadas diretas de construção de objetos por chamadas para uma função especial. As subclasses podem retornar tipos diferentes de produtos somente se esses produtos tiverem uma classe ou interface básica comum. Além disso, o Factory Method na classe base deve ter seu tipo de retorno declarado como essa interface. A versão python desse padrão utiliza classes abstratas no lugar de classes de interfaces. É ilustrado na figura () o diagrama de classes UML desse padrão.
+
+![sequencia_antigo](factory_method.png)
+
 ## Atividiades Realizadas
 
 ### Paralelização de lasers duais
@@ -65,8 +68,13 @@ Com a finalidade de mensurar o impacto na melhoria do código, uma ferramenta de
 
 No inicio da execução dos testes, existe uma etapa automatizada de detecção dos equipamentos conectados a cada um dos lasers. Os equipamentos mudam de acordo com a disponibilidade e os testes que serão executados e com o passar do tempo foram surgindo novos testes e diferentes equipamentos, fazendo com que a função responsável por isso acabasse ficando complexa, com 44 de complexidade ciclomática, devido a isso foi necessário realizar uma refatoração.
 
-Grande parte da complexidade ciclomática atrelada a essa função era devido ela diretamente determinar quais classes de equipamentos deveriam ser instanciadas e quais argumentos deveriam ser passados na instanciação. Utilizando o padrão de projeto denominado _factory method_ foi possível delegar essa tarefa de instanciação de objetos para uma função especializada.
+Grande parte da complexidade ciclomática atrelada a essa função era devido ela diretamente determinar quais classes de equipamentos deveriam ser instanciadas e quais argumentos deveriam ser passados na instanciação. Utilizando uma simplificação do padrão de projeto denominado _factory method_ foi possível delegar essa tarefa de instanciação de objetos para uma função especializada.
 
 A função de detecção dos equipamentos também fazia distinção entre as _goldboxs_ RX e TX, fazendo com que houvesse duplicação de boa parte do código, essa diferenciação entre as _goldboxs_ foi amenizada, fazendo com que fosse possível remover quase totalmente o código repetido.
 
 Antes da refatoração o código possuia 44 de complexidade ciclomática, 245 linhas de código e 58 mensagens de erros ou possíveis problemas ou violações de convenções encontrados pelo Prospector. Após a refatoração a complexidade ciclomática caiu para 13, o número de linhas foi de 184 e o Prospector apresentou apenas 5 mensagens.
+
+
+## Referências:
+
+https://refactoring.guru/design-patterns/factory-method 
