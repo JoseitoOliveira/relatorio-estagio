@@ -33,11 +33,15 @@ colocar uml
 
 ### Paralelização de lasers duais
 
-Um dos produtos desenvolvidos pelo grupo Idea são lasers duais, que possuem duas _goldboxes_ integradas numa mesma eletrônica reduzindo o tamanho resultante do conjunto. É utilizado um único micro-controlador e interface de comunicação para os dois lasers, e apesar disso os lasers funcionam de forma independente. A distinção dos comandos de controle enviados para cada laser é feito por meio de um comando adicional que segue o protocolo estabelecido pela OIF, ou seja, após o envio do comando identificando qual o laser de destino da informação, todos os próximos comandos recebidos serão aplicados sobre o laser informado.
+Um dos produtos desenvolvidos pelo grupo Idea são lasers duais, que possuem duas _goldboxes_ integradas numa mesma eletrônica reduzindo o tamanho resultante do conjunto. É utilizado um único micro-controlador e interface de comunicação para controle das duas _goldboxes_, e apesar disso as elas funcionam de forma independente. A distinção dos comandos de controle enviados para cada _goldbox_ é feito por meio de um comando adicional que segue o protocolo estabelecido pela OIF, ou seja, após o envio do comando identificando qual a _goldbox_ de destino da informação, todos os próximos comandos recebidos serão aplicados sobre a _goldbox_ informada. No diagrama de sequência da figura () é ilustrado como é a interação dos scripts de teste com o firmware embarcado que controla a _goldbox_.
 
-Dado o compartilhamento da interface de comunicação e o protocolo utilizado nos lasers duais, o fluxo de testes era aplicado de forma sequencial entre as _goldboxes_ e o tempo para execução do fluxo completo era quase que o dobro do utilizado em lasers que possuiam uma única _goldbox_.
+![sequencia_antigo](comando_old.png)
 
-Para possibilitar a execução dos testes de cada uma das _goldboxes_ concorrentemente em threads, é preciso ter uma sincronização entre as threads e para isso foi utilizado uma arquitetura baseada em _mutex_. Cada eletrônica precisa ter sua própria mutex e essa mutex precisa ser compartilhada entre as goldboxes de uma mesma eletrônica.
+Com a arquitetura antiga, os scripts de calibração eram responsáveis por chavear entre as _goldbox_ e dado o compartilhamento da interface de comunicação o fluxo de testes era aplicado de forma sequencial entre as _goldboxes_ e o tempo para execução do fluxo completo era aproximadamente o dobro do utilizado em lasers que possuiam uma única _goldbox_.
+
+Para contornar essas limitações, a responsabilidade de chaveamento entre as _golfboxe_ foi movida para API do laser, jutamente com a utilização mutexes, primitivas de sincronização de exclusão mútua, com isso tornou-se possível a execução dos testes de cada uma das _goldboxes_ concorrentemente em threads. Cada eletrônica passou a ter sua própria mutex e essa mutex é compartilhada entre as goldboxes controladas por essa eletrônica. No diagrama de sequência da figura () é ilustrado como é a interação dos scripts de teste com o firmware embarcado na nova arquitetura.
+
+![sequencia_nova](comando_novo.png)
 
 ### Refatorações e Reestruturações
 
