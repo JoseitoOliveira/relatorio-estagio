@@ -23,9 +23,7 @@ O principal objetivo do Prospector é ser útil 'fora da caixa'. Uma reclamaçã
 ### Complexidade Ciclomática
 ...
 colocar imagem ilustrativa
-### Singleton
-...
-colocar uml
+
 ### Factory Method
 ...
 colocar uml
@@ -57,7 +55,7 @@ Para substituir essa estrutura de controle de fluxo, foram criadas classes que h
 
 Os testes eram armazenados em dois dicionários diferentes, cada um possuindo uma forma diferente de indexação dos testes, de modo que qualquer busca de testes precisaria ser feita de forma manual, manipulando diretamente os dicionários e em caso de redmoção de um laser arbitrário do fluxo, essa remoção também era feita manipulando diretamente os dois dicionários, pois há a necessidade que a informação dos dicionários seja sincronizada.
 
-Para que a manipulação dos dicionários não seja feita de forma direta, uma classe singleton chamada TestPool com a responsabilidade de armazenar os testes foi criada. Além de armazenar os testes, essa classe implementa uma série de facilidades de buscas de testes, iteradores sobre os testes, os lasers, e ou os equipamentos dos testes e métodos de remoção de lasers também foram implementados. Apenas o trecho responsável por remover os lasers do fluxo de testes se repetia 7 vezes e era responsável por 63 dos 101 de complexidade ciclomática da estrutura de controle de fluxo mensionado anteriormente.
+Para que a manipulação dos dicionários não seja feita de forma direta, uma classe chamada TestPool com a responsabilidade de armazenar os testes foi criada. Além de armazenar os testes, essa classe implementa uma série de facilidades de buscas de testes, iteradores sobre os testes, os lasers, e ou os equipamentos dos testes e métodos de remoção de lasers também foram implementados. Apenas o trecho responsável por remover os lasers do fluxo de testes se repetia 7 vezes e era responsável por 63 dos 101 de complexidade ciclomática da estrutura de controle de fluxo mensionado anteriormente.
 
 ![TestPool](test_pool.png)
 
